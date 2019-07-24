@@ -118,13 +118,13 @@ def convert_pdf_to_txt(path_to_pdf, path_to_txt, with_chinese):
     import pytesseract
     pytesseract.pytesseract.tesseract_cmd = r'E:\Program_files\Tesseract-OCR\tesseract.exe'
 
-
+    language = 'eng' if not with_chinese else 'chi_sim'
     images = convert_from_path(path_to_pdf)
     with open(path_to_txt, "wb") as ft:
         for i in range(len(images)):
             try:
                 im = images[i]
-                text = pytesseract.image_to_string(im, lang='chi_sim')
+                text = pytesseract.image_to_string(im, lang=language)
                 ft.write((text + '\n').encode('utf-8'))
                 # print(text)
             except Exception as err:
